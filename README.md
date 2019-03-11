@@ -5,7 +5,7 @@ GitHubで特定のラベルがついたPRの情報をSlackに流す。
 - PRがmergeできるようになったらSlackの特定の部屋に通知がいく。
 - releaseしたPRのラベルをそれぞれ取得して、通知したい部屋に流す。
 - 特定のラベルがついたリリースを特定の部屋に通知する。
-- それぞれのPR情報(作成者, レビュワー, ラベル, PRの名前, PR詳細)を通知する
+- それぞれのPR情報（作成者、 レビュワー、 ラベル、 PRの名前、 PR詳細）を通知する
 - 特定のチームが抱えるリポジトリの情報をすべて取得したい
 
 ## 基本設計
@@ -17,10 +17,25 @@ https://developer.github.com/v3/repos/releases/#get-the-latest-release
 
 ## 導入
 ### GitHub
-以下にアクセスして、新規でリポジトリトークンを作成する。
-https://github.com/settings/tokens/new
+トークンは必要ない。
+導入したいリポジトリの`webhooks`に指定すればいいだけ。
 
-とりあえず`repo`の権限だけ付与しておく。Tokenは一度だけしか表示されないので、メモっておく。
+```
+- Payload URL    :  API Gatewayのエンドポイント
+- Content type    application/json
+- Secret :    空白
+- Which events would you like to trigger this webhook?
+   - Pull requests
+   - Pushs
+
+```
+
+webhookのドキュメント
+https://developer.github.com/webhooks/
+webhook pull requestsのドキュメント
+https://developer.github.com/v3/activity/events/types/#pullrequestevent
+web hook pushのドキュメント
+
 
 
 運用ルール
@@ -29,11 +44,11 @@ https://github.com/settings/tokens/new
 - PRになるべくラベルをつけること
 
 まとめると
-mergeできるようになったPRのラベルを取得して、Slackの部屋に通知する.
+mergeできるようになったPRのラベルを取得して、Slackの部屋に通知する。
 
 
 メリット
-PRにきちんとラベルをつける習慣が生まれることで、管理がしやすくなる.
+PRにきちんとラベルをつける習慣が生まれることで、管理がしやすくなる。
 
 
 
