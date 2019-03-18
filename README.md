@@ -35,6 +35,21 @@ https://developer.github.com/webhooks/
 webhook pull requestsのドキュメント
 https://developer.github.com/v3/activity/events/types/#pullrequestevent
 web hook pushのドキュメント
+https://developer.github.com/v3/activity/events/types/#pushevent
+
+関数設計
+
+payloadの先頭にactionカラムが入っているのが、PullRequestEvent(PRE)。
+payloadの先頭にrefカラムが入っているのが、PushsEvent。
+
+まずはmasterへのpushを検出する部分を実装する。
+masterへのpushが行われた場合、以下の形になる。
+'ref': 'refs/heads/master',
+
+また、PREventでmergeを検出するのもあり。
+マージされたタイミングのみを検出するには、以下の形が良さそう。
+'action': 'closed' && 'merged': True,
+
 
 
 
