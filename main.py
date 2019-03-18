@@ -14,13 +14,14 @@ def return_200():
     print("prodess kill")
     return 0
 
-
+# メインの処理
 def lambda_handler(event, context):
     # slackからの投稿を slack_input_text へ格納
     print("関数呼び出されsection")
     # print(type(event))
     print(event.keys())
     print(event)
+    channel_id_list = {'CRE': 'https://lancers.slack.com/messages/CD5D8JHD4'}
 
     # EventがPullRequestの時
     if ('pull_request' in event):
@@ -30,7 +31,8 @@ def lambda_handler(event, context):
 
         # PRがmergeされた時
         if (action == 'edited' and PR['merged']):
-            print('関数がマージされたよ。')
+            msg = 'mergeされたよ！'
+            post_message_to_slack(msg, channel_id_list['CRE'])
 
     # EventがPushsの時
     elif ('ref' in event):

@@ -30,6 +30,32 @@ https://developer.github.com/v3/repos/releases/#get-the-latest-release
 
 ```
 
+### Slackへの導入
+以下のページから該当のワークスペースにbotを作成する。
+https://api.slack.com/
+
+`Bot user`から登録するBotを作成する。
+
+
+作成したら、`OAuth & Permissions` の下にある`Scopes`から権限を追加する。
+- Send messages as user
+- Add a bot user with the username @github_release_info
+
+できたら、`Install App to Workspace`を実行。
+
+実行したら、そこの画面に表示されている
+- OAuth Access Token
+- Bot User OAuth Access Token
+
+これらをメモしておく。
+
+### Lambda Functionの作成
+このリポジトリをzipにまとめ、Lambda関数にアップロードする。
+
+環境変数に以下の値を入力。
+- SLACK_OAUTH_ACCESS_TOKEN : SlackのOAuth Access Token
+- SLACK_BOT_USER_ACCESS_TOKEN : SlackのBot User OAuth Access Token
+
 webhookのドキュメント
 https://developer.github.com/webhooks/
 webhook pull requestsのドキュメント
@@ -50,7 +76,7 @@ masterへのpushが行われた場合、以下の形になる。
 マージされたタイミングのみを検出するには、以下の形が良さそう。
 'action': 'closed' && 'merged': True,
 
-
+送られてくるデータは辞書型。
 
 
 運用ルール
